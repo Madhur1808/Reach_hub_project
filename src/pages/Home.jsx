@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 
 const Home = () => {
-  // api call
   const [symbols, setSymbols] = useState([]);
 
   const [error, setError] = useState(null);
@@ -23,7 +22,6 @@ const Home = () => {
   const apiKey = "cn7fsa9r01qgjtj4jbu0cn7fsa9r01qgjtj4jbug";
 
   useEffect(() => {
-    // Making a GET request using Axios within the useEffect hook
     const fetchData = async () => {
       try {
         const response = await axios.get(apiUrl, {
@@ -33,13 +31,10 @@ const Home = () => {
           },
         });
 
-        // Extracting symbols from the response data
-        // const symbolData = response?.data?.map((company) => company?.symbol);
         const symbolData = response?.data?.slice(0, 300);
 
         setSymbols(symbolData);
 
-        // console.log(symbols);
         console.log(response?.data[0]);
       } catch (error) {
         console.error("Error:", error);
@@ -48,10 +43,9 @@ const Home = () => {
     };
 
     fetchData();
-  }, []); // The empty dependency array ensures that
+  }, []);
 
   useEffect(() => {
-    // Update filteredSymbols based on the search query
     setFilteredSymbols(
       symbols.filter((symbol) =>
         symbol.symbol.toLowerCase().includes(searchQuery.toLowerCase())
@@ -63,33 +57,12 @@ const Home = () => {
     setSearchQuery(event.target.value);
   };
 
-  //   // Debounce the search function
-  //   const debouncedSearch = debounce((query) => {
-  //     setSearchQuery(query);
-  //   }, 300);
-
-  //   const handleSearch = (event) => {
-  //     debouncedSearch(event.target.value);
-  //   };
-
-  //   const filteredSymbols = symbols.filter((symbol) =>
-  //     symbol.symbol.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-
   return (
-    // <div></div>
-    <div>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
       {error ? (
         <p>Error: {error}</p>
       ) : symbols.length > 0 ? (
-        <div
-          style={{
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <div>
           {/* Displaying Material-UI cards with stock symbols */}
           <Typography
             style={{ fontSize: "20px", fontWeight: 700, margin: "20px" }}
@@ -104,7 +77,17 @@ const Home = () => {
           />
           <Box style={{ marginTop: "20px" }}>
             {filteredSymbols.map((symbolCard, index) => (
-              <Card key={index} variant="outlined" style={{ marginBottom: 10 }}>
+              <Card
+                key={index}
+                variant="outlined"
+                style={{
+                  marginBottom: 10,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  border: "2px solid #000",
+                  maxWidth: 600,
+                }}
+              >
                 <CardContent>
                   <Typography variant="h6" component="div">
                     Stock Symbol: {symbolCard.symbol}
