@@ -71,7 +71,7 @@ const Home = () => {
           </Typography>
           <TextField
             type="text"
-            placeholder="Search by symbol"
+            placeholder="Search by symbol eg SOMMY"
             onChange={handleSearch}
             style={{ width: "500px" }}
           />
